@@ -5,7 +5,7 @@ date:   2013-10-11 14:32:03
 ---
 
 When pushing more and more types of events to [Logstash], the configuration easily became quite complex and hard to manage.
-It's easy to make both *syntax* and *logical* errors. So, testing your logstash configuration is good thing.
+It's easy to make both *syntax* and *logical* errors. So, testing your logstash configuration before bringing it to your server is a good thing.
 
 ### Step 1: Syntax check
 

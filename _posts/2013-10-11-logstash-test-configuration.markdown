@@ -59,6 +59,7 @@ describe "haproxy logs" do
 
     insist { subject["@fields"]["backend_name"] } == [ "backend-name" ]
     insist { subject["@fields"]["http_request"] } == [ "/app/status" ]
+    insist { subject["tags"].include?("HTTP_REQUEST") }
     insist { subject["@timestamp"] } == "2013-10-08T06:46:44.256Z"
     reject { subject["@timestamp"] } == "2013-10-08T06:46:47Z"
   end
@@ -69,13 +70,13 @@ end
 You can see the pattern:
 
 1. Specify filter configuration. Filters are the most important (and easiest) to test.
-2. Add some sample input. This is what the filter would get from the input side.
-3. Write expectations for the sample input.
+2. Add some sample input. This is what the filter would get from the input side. In this example the sample message is a haproxy log message.
+3. Write expectations for the sample input. In this example we test if the fields are grokked out correctly and if the timestamp has been extracted correctly from the accept_date field.
 
 When you run the test, this is the output:
 
 {% highlight bash %}
-$ java -jar logstash.jar rspec --color example_spec.rb 
+$ java -jar logstash.jar rspec --color example_spec.rb
 .
 
 Finished in 0.028 seconds
@@ -101,6 +102,7 @@ Make sure you leave the `input { }` and `output { }` parts out of the configurat
 
 ### Bonus points: test your puppet-templated Logstash configuration file
 
+I a next post, I will talk about how to test puppet templated configuration files.
 
 [Logstash]:   http://logstash.net
 [configtest]: https://logstash.jira.com/browse/LOGSTASH-345
